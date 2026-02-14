@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Babe ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { background: #fff5f5; font-family: 'Quicksand', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        .step { display: none; min-height: 100vh; width: 100%; padding: 20px; align-items: center; justify-content: center; flex-direction: column; text-align: center; }
+        .active { display: flex; animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Fixed Envelope Styles */
+        .envelope-wrapper { position: relative; width: 280px; height: 180px; cursor: pointer; margin-top: 50px; }
+        .envelope { position: absolute; width: 100%; height: 100%; background: #e91e63; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 2; }
+        
+        .envelope:before { 
+            content: ""; position: absolute; top: 0; left: 0; z-index: 4; 
+            border-top: 100px solid #f06292; border-left: 140px solid transparent; border-right: 140px solid transparent; 
+            transform-origin: top; transition: transform 0.5s ease; 
+        }
+        
+        .envelope:after { 
+            content: ""; position: absolute; top: 0; left: 0; z-index: 3; 
+            width: 0; height: 0; 
+            border-top: 90px solid transparent; border-right: 140px solid #e91e63; border-bottom: 90px solid #e91e63; border-left: 140px solid #e91e63; 
+        }
+
+        .letter { 
+            position: absolute; bottom: 5px; left: 10px; width: 260px; height: 160px; 
+            background: white; z-index: 1; transition: transform 0.8s ease; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            padding: 15px; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* Opening Animation State */
+        .open.envelope:before { transform: rotateX(180deg); z-index: 0; }
+        .open .letter { transform: translateY(-100px); z-index: 5; }
+
+        .photo-card { background: white; padding: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transform: rotate(var(--r)); transition: 0.3s; }
+        .photo-card img { width: 140px; height: 140px; object-fit: cover; border-radius: 4px; }
+        
+        .kiss-photo { width: 260px; height: 260px; object-fit: cover; border-radius: 50%; border: 6px solid #fff; box-shadow: 0 0 25px rgba(233, 30, 99, 0.4); margin-top: 20px; }
+        .btn-premium { background: #e91e63; color: white; padding: 15px 40px; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3); border: none; font-size: 1.1rem; cursor: pointer; }
+        
+        .heart-float { position: fixed; color: #ff4d6d; pointer-events: none; z-index: -1; animation: float 6s linear infinite; }
+        @keyframes float { 0% { transform: translateY(100vh); opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://files.catbox.moe/3nd0ku.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- STEP 1: DIRECT ENVELOPE START -->
+    <div id="step1" class="step active">
+        <h1 class="text-3xl font-bold text-pink-600 mb-4 px-4">Suniye... ❤️</h1>
+        <div class="envelope-wrapper" onclick="openEnvelope(this)">
+            <div class="envelope">
+                <div class="letter">
+                    <p class="font-['Dancing_Script'] text-2xl text-pink-600">A special message...</p>
+                    <p class="text-[10px] text-gray-400 mt-2 italic">Tap to open & play music</p>
+                </div>
+            </div>
+        </div>
+        <p class="text-xs text-pink-300 mt-12">(Make sure your phone is not on silent!)</p>
+    </div>
+
+    <!-- STEP 2: PHOTOS -->
+    <div id="step2" class="step">
+        <h2 class="text-2xl font-bold text-pink-600 mb-8 font-['Dancing_Script']">Some "Babe" Moments...</h2>
+        <div class="flex flex-wrap justify-center gap-4 mb-10">
+            <div class="photo-card" style="--r: -4deg"><img src="https://i.postimg.cc/QCQ2Yv1z/IMG-1773.jpg"></div>
+            <div class="photo-card" style="--r: 2deg"><img src="https://i.postimg.cc/P5x71CVJ/IMG-1627.jpg"></div>
+            <div class="photo-card" style="--r: -2deg"><img src="https://i.postimg.cc/rsjhrTSR/IMG-1819.jpg"></div>
+        </div>
+        <button class="btn-premium" onclick="nextStep(3)">Keep Going →</button>
+    </div>
+
+    <!-- STEP 3: MESSAGE -->
+    <div id="step3" class="step">
+        <div class="max-w-xs bg-white p-8 rounded-3xl shadow-xl border-t-4 border-pink-500 mx-4">
+            <p class="text-gray-600 italic leading-relaxed">
+                "I know the distance is tough, but I'm here to solve it with you. Not alone, but as a team. Let's make this work, one day at a time. I love you, Babe."
+            </p>
+            <p class="font-['Dancing_Script'] text-xl text-pink-500 mt-4">- Yours Forever</p>
+        </div>
+        <button class="btn-premium mt-8" onclick="nextStep(4)">Ready? ✨</button>
+    </div>
+
+    <!-- STEP 4: VALENTINE -->
+    <div id="step4" class="step">
+        <div id="question-container">
+            <h1 class="text-4xl font-bold text-pink-600 mb-8 font-['Dancing_Script']">Will you be my Valentine?</h1>
+            <div class="flex flex-col gap-4 items-center">
+                <button class="btn-premium w-64" onclick="celebrate()">YES! ❤️</button>
+                <button id="btn-no" class="border-2 border-pink-500 text-pink-500 px-10 py-3 rounded-full font-bold transition-all">No</button>
+            </div>
+        </div>
+        
+        <div id="success" class="hidden animate-fadeIn pb-10">
+            <p class="text-3xl font-['Dancing_Script'] text-pink-600">I knew you'd say yes! 🫂</p>
+            <img src="https://i.postimg.cc/rwKhKvzp/IMG-1795.jpg" class="kiss-photo mx-auto">
+            <p class="text-pink-400 font-bold mt-4">See you soon in Kolhapur! 😉</p>
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+
+        function openEnvelope(wrapper) {
+            const env = wrapper.querySelector('.envelope');
+            env.classList.add('open');
+            
+            // Music plays on first interaction
+            music.play().catch(e => console.log("Music waiting for interaction"));
+            
+            // Wait for letter to pop up before moving to next step
+            setTimeout(() => nextStep(2), 2000);
+        }
+
+        function nextStep(num) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + num).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        const btnNo = document.getElementById('btn-no');
+        const moveNo = (e) => {
+            e.preventDefault();
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+        };
+
+        btnNo.addEventListener('touchstart', moveNo);
+        btnNo.addEventListener('mouseover', moveNo);
+
+        function celebrate() {
+            document.getElementById('question-container').classList.add('hidden');
+            document.getElementById('success').classList.remove('hidden');
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.classList.add('heart-float'); h.innerHTML = '❤️';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 5000);
+            }, 150);
+        }
+    </script>
+</body>
+</html>
+
